@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import Product from './components/product-list'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import store from './Store';
 import { Provider } from 'react-redux'
 import React, { Component } from 'react';
+import Main from './components/core/main'
+import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends Component {
   render() {
@@ -12,6 +13,29 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+            <header className='App-header'>
+              <h2>Welcome to CUA HANG 7 TY</h2>
+            </header>
+            <body className='App-body'>
+              <div className='App-content'>
+                <Main/>
+              </div>
+            </body>
+            <footer className='App-footer'>
+
+            </footer>
+          </div>
+        </Router>
+      </Provider>
+    )
+  }
+}
+
+export default App;
+
+/*
+
+<div className="App">
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
               <nav>
@@ -36,10 +60,5 @@ class App extends Component {
               </Routes>
             </header>
           </div>
-        </Router>
-      </Provider>
-    )
-  }
-}
 
-export default App;
+*/
