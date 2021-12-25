@@ -6,24 +6,46 @@ import { Provider } from 'react-redux'
 import React, { Component } from 'react';
 import Main from './components/core/main'
 import 'bootstrap/dist/css/bootstrap.css';
+import { Row, Col } from 'react-bootstrap';
+import Sidebar from './components/core/sidebar';
 
 class App extends Component {
   render() {
+
+    const header = (
+      <header className='App-header'>
+        <h2 style={{ paddingLeft: '2rem' }}>Welcome to CUA HANG 7 TY</h2>
+      </header>
+    )
+
+    const body = (
+      <body className='App-body'>
+        <div className='App-content'>
+          <Row>
+            <Col xs lg="2">
+              <Sidebar />
+            </Col>
+            <Col md="auto">
+              <Main />
+            </Col>
+          </Row>
+        </div>
+      </body>
+    )
+
+    const footer = (
+      <footer className='App-footer'>
+
+      </footer>
+    )
+
     return (
       <Provider store={store}>
         <Router>
           <div className="App">
-            <header className='App-header'>
-              <h2>Welcome to CUA HANG 7 TY</h2>
-            </header>
-            <body className='App-body'>
-              <div className='App-content'>
-                <Main/>
-              </div>
-            </body>
-            <footer className='App-footer'>
-
-            </footer>
+            {header}
+            {body}
+            {footer}
           </div>
         </Router>
       </Provider>

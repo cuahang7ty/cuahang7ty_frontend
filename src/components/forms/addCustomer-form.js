@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Form, Button, Row, Col, Card } from 'react-bootstrap'
+import { addNewCustomer } from '../../actions/customer-action'
 
-export class ProductForm extends Component {
+export class AddCustomerForm extends Component {
     constructor(props) {
         super(props)
 
+        // this.handleSubmit = this.handleSubmit.bind(this)
+
         this.state = {
-            _productName: '',
-            _unitPrice: 0,
-            _stock: 0,
+            _fullName: '',
+            _numberphone: 0,
+            _level: 0,
         }
+        // this.firstText = React.createRef()
     }
-    
+
     changeHandler = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -19,45 +24,47 @@ export class ProductForm extends Component {
     }
 
     submitHandler = () => {
-        //tu 1 form giong nhau vua co the add product vua chinh sua product duoc
+        const { _fullName, _numberphone, _level } = this.state
+        this.props.addNewCustomer(_fullName, _numberphone, _level)
+            .then(result => console.log(result))
     }
 
     render() {
         return (
             <div>
                 <Card
-                    bg={"secondary"}
+                    bg={"dark"}
                     text={"white"}
                     style={{ width: '30rem' }}
-                    className="mb-2"
+                    className="mb-4"
                 >
-                    <Card.Header>Thêm hàng</Card.Header>
+                    <Card.Header>Thêm mặt hàng</Card.Header>
                     <Card.Body>
                         <Form className="mb-3" onSubmit={this.submitHandler}>
                             <Form.Group as={Row} className="mb-3">
                                 <Form.Label column>
-                                    Tên hàng
+                                    Tên khách
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control name="_productName" onChange={(e) => this.changeHandler(e)} />
+                                    <Form.Control name="_fullName" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
 
                             <Form.Group as={Row} className="mb-3">
                                 <Form.Label column>
-                                    Giá bán lẻ
+                                    Số điện thoại
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control type="number" name="_unitPrice" onChange={(e) => this.changeHandler(e)}/>
+                                    <Form.Control type="number" name="_numberphone" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
 
                             <Form.Group as={Row} className="mb-3">
                                 <Form.Label column>
-                                    Số lượng tồn
+                                    Level
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control type="number" name="_stock" onChange={(e) => this.changeHandler(e)}/>
+                                    <Form.Control type="number" name="_level" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
 
@@ -71,11 +78,11 @@ export class ProductForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    
+
 })
 
 const mapDispatchToProps = {
-    
+    addNewCustomer,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductForm)
+export default connect(mapStateToProps, mapDispatchToProps)(AddCustomerForm)

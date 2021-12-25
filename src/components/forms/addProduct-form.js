@@ -16,7 +16,7 @@ export class AddProductForm extends Component {
         }
         // this.firstText = React.createRef()
     }
-    
+
     changeHandler = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -24,21 +24,21 @@ export class AddProductForm extends Component {
     }
 
     submitHandler = () => {
-        const {_productName, _unitPrice, _stock} = this.state
+        const { _productName, _unitPrice, _stock } = this.state
         this.props.addNewProduct(_productName, _unitPrice, _stock)
-        .then(result => console.log(result))
+            .then(result => console.log(result))
     }
 
     render() {
         return (
             <div>
                 <Card
-                    bg={"secondary"}
+                    bg={"dark"}
                     text={"white"}
                     style={{ width: '30rem' }}
-                    className="mb-2"
+                    className="mb-4"
                 >
-                    <Card.Header>Thêm hàng</Card.Header>
+                    <Card.Header>Thêm mặt hàng</Card.Header>
                     <Card.Body>
                         <Form className="mb-3" onSubmit={this.submitHandler}>
                             <Form.Group as={Row} className="mb-3">
@@ -55,7 +55,7 @@ export class AddProductForm extends Component {
                                     Giá bán lẻ
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control type="number" name="_unitPrice" onChange={(e) => this.changeHandler(e)}/>
+                                    <Form.Control type="number" name="_unitPrice" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
 
@@ -64,11 +64,11 @@ export class AddProductForm extends Component {
                                     Số lượng tồn
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control type="number" name="_stock" onChange={(e) => this.changeHandler(e)}/>
+                                    <Form.Control type="number" name="_stock" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
 
-                            <Button type="submit">Submit</Button>
+                            <Button variant="success" type="submit">Submit</Button>
                         </Form>
                     </Card.Body>
                 </Card>
@@ -82,7 +82,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    addNewProduct
+    addNewProduct,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProductForm)

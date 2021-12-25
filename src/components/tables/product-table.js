@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { deleteAProductForever, getAllProduct, editProduct } from '../../actions/product-action'
 import { connect } from 'react-redux'
-import { Table, Button, FormControl } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 
 
 class ProductTable extends Component {
@@ -21,15 +21,29 @@ class ProductTable extends Component {
   }
 
   async componentWillMount() {
-    let productList = await this.props.getAllProduct()
     this.setState({
-      _productList: productList
+      _productList: await this.props.getAllProduct()
     })
   }
 
+  componentDidUpdate = (prevProps) => {
+    let { productList } = this.props
+    if (prevProps.productList !== productList && productList !== null) {
+      this.setState({
+        _productList: productList
+      })
+    }
+  }
+
   deleteHandler = (_id) => {
-    this.props.deleteAProductForever(_id)
-      .then(result => alert(result.msg))
+    var answer = window.confirm("Bạn thật sự muốn xóa?");
+    if (answer) {
+      this.props.deleteAProductForever(_id)
+        .then(result => {
+          this.props.getAllProduct()
+          alert(result.msg)
+        })
+    }
   }
 
   setEditRow = (row, product) => {
@@ -44,18 +58,25 @@ class ProductTable extends Component {
     })
   }
 
+  stopEdit = () => {
+    this.setState({
+      _editRow: -1
+    })
+  }
+
   changeHandler = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
-  saveChange = (product) => {
+  saveChange = async (product) => {
     this.setState({
       _editRow: -1
     })
     const { _id, _barcode, _productName, _unitPrice, _stock } = this.state
-    this.props.editProduct(_id, _barcode, _productName, _unitPrice, _stock)
+    await this.props.editProduct(_id, _barcode, _productName, _unitPrice, _stock)
+    this.props.getAllProduct()
   }
 
   render() {
@@ -63,6 +84,7 @@ class ProductTable extends Component {
 
     return (
       <div>
+        {alert}
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>
@@ -89,8 +111,8 @@ class ProductTable extends Component {
                     <td>{unitPrice}</td>
                     <td>{stock}</td>
                     <td>
-                      <Button variant='danger' onClick={e => this.deleteHandler(_id)}>xóa</Button>
-                      <Button variant='warning' onClick={e => this.setEditRow(row, product)}>sửa</Button>
+                      <Button style={{ marginRight: '1rem', width: '5rem' }} variant="outline-danger" onClick={e => this.deleteHandler(_id)}>xóa</Button>
+                      <Button style={{ width: '5rem' }} variant="outline-warning" onClick={e => this.setEditRow(row, product)}>sửa</Button>
                     </td>
                   </tr>
                 )
@@ -107,14 +129,15 @@ class ProductTable extends Component {
                       <input defaultValue={productName} placeholder={productName} name='_productName' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
-                      <input defaultValue={unitPrice} placeholder={unitPrice} name='unitPrice' onChange={e => this.changeHandler(e)} />
+                      <input defaultValue={unitPrice} placeholder={unitPrice} name='_unitPrice' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
-                      <input defaultValue={stock} placeholder={stock} name='stock' onChange={e => this.changeHandler(e)} />
+                      <input defaultValue={stock} placeholder={stock} name='_stock' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
-                      <Button variant='danger' onClick={e => this.deleteHandler(_id)}>xóa</Button>
-                      <Button variant='success' onClick={e => this.saveChange(product)}>lưu</Button>
+                      {/* <Button variant="outline-danger" onClick={e => this.deleteHandler(_id)}>xóa</Button> */}
+                      <Button style={{ marginRight: '1rem', width: '5rem' }} variant="outline-danger" onClick={e => this.stopEdit()}>hủy</Button>
+                      <Button style={{ width: '5rem' }} variant="success" onClick={e => this.saveChange(product)}>lưu</Button>
                     </td>
                   </tr>
                 )
