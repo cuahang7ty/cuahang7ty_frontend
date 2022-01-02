@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { deleteAProductForever, getAllProduct, editProduct } from '../../actions/product-action'
+import { deleteAProductForever, getAllProduct, updateProduct } from '../../actions/product-action'
 import { connect } from 'react-redux'
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Stack } from 'react-bootstrap';
+import AddKeywordModal from '../../modals/addKeyword-modal';
 
 
 class ProductTable extends Component {
@@ -10,14 +11,17 @@ class ProductTable extends Component {
 
     this.state = {
       _productList: [],
-      _editRow: -1,
+      _updateRow: -1,
+      _show: false,
 
       _id: '',
-      _barcode: '',
-      _productName: '',
-      _unitPrice: 0,
-      _stock: 0
+      _tenMatHang: '',
+      _giaBanLe: 0,
+      _giaNhap: 0,
+      _soLuongTon: 0
     }
+
+    // this.onShowModalAddKeyword = this.onShowModalAddKeyword.bind(this);
   }
 
   async componentWillMount() {
@@ -29,6 +33,7 @@ class ProductTable extends Component {
   componentDidUpdate = (prevProps) => {
     let { productList } = this.props
     if (prevProps.productList !== productList && productList !== null) {
+      console.log('productList table', productList)
       this.setState({
         _productList: productList
       })
@@ -47,20 +52,20 @@ class ProductTable extends Component {
   }
 
   setEditRow = (row, product) => {
-    const { _id, productName, barcode, unitPrice, stock } = product
+    const { _id, tenMatHang, giaBanLe, giaNhap, soLuongTon } = product
     this.setState({
-      _editRow: row,
+      _updateRow: row,
       _id: _id,
-      _barcode: barcode,
-      _productName: productName,
-      _unitPrice: unitPrice,
-      _stock: stock
+      _tenMatHang: tenMatHang,
+      _giaBanLe: giaBanLe,
+      _giaNhap: giaNhap,
+      _soLuongTon: soLuongTon
     })
   }
 
   stopEdit = () => {
     this.setState({
-      _editRow: -1
+      _updateRow: -1
     })
   }
 
@@ -72,15 +77,19 @@ class ProductTable extends Component {
 
   saveChange = async (product) => {
     this.setState({
-      _editRow: -1
+      _updateRow: -1
     })
-    const { _id, _barcode, _productName, _unitPrice, _stock } = this.state
-    await this.props.editProduct(_id, _barcode, _productName, _unitPrice, _stock)
+    const { _id, _tenMatHang, _giaBanLe, _giaNhap, _soLuongTon } = this.state
+    await this.props.updateProduct(_id, _tenMatHang, _giaBanLe, _giaNhap, _soLuongTon)
     this.props.getAllProduct()
   }
 
+  setShow = (status) => {
+    this.setState({ _show: status })
+  }
+
   render() {
-    const { _productList, _editRow } = this.state
+    const { _productList, _updateRow } = this.state
 
     return (
       <div>
@@ -90,29 +99,32 @@ class ProductTable extends Component {
             <tr>
               <th>#</th>
               <th>_id</th>
-              <th>Barcode</th>
-              <th>Product Name</th>
-              <th>Unit Price</th>
-              <th>Stock</th>
+              <th>Tên mặt hàng</th>
+              <th>Giá bán lẻ</th>
+              <th>Giá nhập</th>
+              <th>Số lượng tồn</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {_productList.map(product => {
-              let row = _productList.indexOf(product) + 1
-              const { _id, barcode, productName, unitPrice, stock } = product
-              if (_editRow !== row) {
+            {_productList.map((product, index) => {
+              let row = index + 1
+              const { _id, tenMatHang, giaBanLe, giaNhap, soLuongTon } = product
+              if (_updateRow !== row) {
                 return (
                   <tr>
                     <td>{row}</td>
                     <td>{_id}</td>
-                    <td>{barcode}</td>
-                    <td>{productName}</td>
-                    <td>{unitPrice}</td>
-                    <td>{stock}</td>
+                    <td>{tenMatHang}</td>
+                    <td>{giaBanLe}</td>
+                    <td>{giaNhap}</td>
+                    <td>{soLuongTon}</td>
                     <td>
-                      <Button style={{ marginRight: '1rem', width: '5rem' }} variant="outline-danger" onClick={e => this.deleteHandler(_id)}>xóa</Button>
-                      <Button style={{ width: '5rem' }} variant="outline-warning" onClick={e => this.setEditRow(row, product)}>sửa</Button>
+                      <Stack direction="horizontal" gap={1}>
+                        <Button style={{ marginRight: '1rem', width: '5rem' }} variant="outline-danger" onClick={e => this.deleteHandler(_id)}>xóa</Button>
+                        <Button style={{ marginRight: '1rem', width: '5rem' }} variant="outline-warning" onClick={e => this.setEditRow(row, product)}>sửa</Button>
+                        <AddKeywordModal indexOfProduct={index} />
+                      </Stack>
                     </td>
                   </tr>
                 )
@@ -123,28 +135,30 @@ class ProductTable extends Component {
                     <td>{row}</td>
                     <td>{_id}</td>
                     <td>
-                      <input defaultValue={barcode} placeholder={barcode} name='_barcode' onChange={e => this.changeHandler(e)} />
+                      <input defaultValue={tenMatHang} placeholder={tenMatHang} name='_tenMatHang' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
-                      <input defaultValue={productName} placeholder={productName} name='_productName' onChange={e => this.changeHandler(e)} />
+                      <input defaultValue={giaBanLe} placeholder={giaBanLe} name='_giaBanLe' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
-                      <input defaultValue={unitPrice} placeholder={unitPrice} name='_unitPrice' onChange={e => this.changeHandler(e)} />
+                      <input defaultValue={giaNhap} placeholder={giaNhap} name='_giaNhap' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
-                      <input defaultValue={stock} placeholder={stock} name='_stock' onChange={e => this.changeHandler(e)} />
+                      <input defaultValue={soLuongTon} placeholder={soLuongTon} name='_soLuongTon' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
-                      {/* <Button variant="outline-danger" onClick={e => this.deleteHandler(_id)}>xóa</Button> */}
-                      <Button style={{ marginRight: '1rem', width: '5rem' }} variant="outline-danger" onClick={e => this.stopEdit()}>hủy</Button>
-                      <Button style={{ width: '5rem' }} variant="success" onClick={e => this.saveChange(product)}>lưu</Button>
+                      <Stack direction="horizontal" gap={1}>
+                        <Button style={{ marginRight: '1rem', width: '5rem' }} variant="outline-danger" onClick={e => this.stopEdit()}>hủy</Button>
+                        <Button style={{ width: '5rem' }} variant="success" onClick={e => this.saveChange(product)}>lưu</Button>
+                      </Stack>
                     </td>
                   </tr>
                 )
             })}
           </tbody>
         </Table>
-      </div>
+
+      </div >
     )
   }
 }
@@ -156,7 +170,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getAllProduct,
   deleteAProductForever,
-  editProduct
+  updateProduct
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductTable)

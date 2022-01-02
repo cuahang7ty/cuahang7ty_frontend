@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { deleteACustomerForever, getAllCustomer, editCustomer } from '../../actions/customer-action'
+import { deleteACustomerForever, getAllCustomer, updateCustomer } from '../../actions/customer-action'
 import { connect } from 'react-redux'
 import { Table, Button, FormControl } from 'react-bootstrap';
 
@@ -10,12 +10,12 @@ class CustomerTable extends Component {
 
         this.state = {
             _customerList: [],
-            _editRow: -1,
+            _updateRow: -1,
 
             _id: '',
-            _fullName: '',
-            _numberphone: '',
-            _address: '',
+            _tenKhachHang: '',
+            _soDienThoai: '',
+            _diaChi: '',
             _level: 0
         }
     }
@@ -44,13 +44,13 @@ class CustomerTable extends Component {
     }
 
     setEditRow = (row, customer) => {
-        const { _id, fullName, numberphone, address, level } = customer
+        const { _id, tenKhachHang, soDienThoai, diaChi, level } = customer
         this.setState({
-            _editRow: row,
+            _updateRow: row,
             _id: _id,
-            _fullName: fullName,
-            _numberphone: numberphone,
-            _address: address,
+            _tenKhachHang: tenKhachHang,
+            _soDienThoai: soDienThoai,
+            _diaChi: diaChi,
             _level: level
         })
     }
@@ -63,15 +63,15 @@ class CustomerTable extends Component {
 
     saveChange = async (customer) => {
         this.setState({
-            _editRow: -1
+            _updateRow: -1
         })
-        const { _id, _fullName, _numberphone, _address, _level } = this.state
-        await this.props.editCustomer(_id, _fullName, _numberphone, _address, _level)
+        const { _id, _tenKhachHang, _soDienThoai, _diaChi, _level } = this.state
+        await this.props.updateCustomer(_id, _tenKhachHang, _soDienThoai, _diaChi, _level)
         this.props.getAllCustomer()
     }
 
     render() {
-        const { _customerList, _editRow } = this.state
+        const { _customerList, _updateRow } = this.state
 
         return (
             <div>
@@ -81,8 +81,8 @@ class CustomerTable extends Component {
                             <th>#</th>
                             <th>_id</th>
                             <th>Full Name</th>
-                            <th>NumberPhone</th>
-                            <th>Address</th>
+                            <th>soDienThoai</th>
+                            <th>diaChi</th>
                             <th>Level</th>
                             <th></th>
                         </tr>
@@ -90,15 +90,15 @@ class CustomerTable extends Component {
                     <tbody>
                         {_customerList.map(customer => {
                             let row = _customerList.indexOf(customer) + 1
-                            const { _id, fullName, numberphone, address, level } = customer
-                            if (_editRow !== row) {
+                            const { _id, tenKhachHang, soDienThoai, diaChi, level } = customer
+                            if (_updateRow !== row) {
                                 return (
                                     <tr>
                                         <td>{row}</td>
                                         <td>{_id}</td>
-                                        <td>{fullName}</td>
-                                        <td>{numberphone}</td>
-                                        <td>{address}</td>
+                                        <td>{tenKhachHang}</td>
+                                        <td>{soDienThoai}</td>
+                                        <td>{diaChi}</td>
                                         <td>{level}</td>
                                         <td>
                                             <Button variant='danger' onClick={e => this.deleteHandler(_id)}>xóa</Button>
@@ -113,13 +113,13 @@ class CustomerTable extends Component {
                                         <td>{row}</td>
                                         <td>{_id}</td>
                                         <td>
-                                            <input defaultValue={fullName} placeholder={fullName} name='_fullName' onChange={e => this.changeHandler(e)} />
+                                            <input defaultValue={tenKhachHang} placeholder={tenKhachHang} name='_tenKhachHang' onChange={e => this.changeHandler(e)} />
                                         </td>
                                         <td>
-                                            <input defaultValue={numberphone} placeholder={numberphone} name='_numberphone' onChange={e => this.changeHandler(e)} />
+                                            <input defaultValue={soDienThoai} placeholder={soDienThoai} name='_soDienThoai' onChange={e => this.changeHandler(e)} />
                                         </td>
                                         <td>
-                                            <input defaultValue={address} placeholder={address} name='_address' onChange={e => this.changeHandler(e)} />
+                                            <input defaultValue={diaChi} placeholder={diaChi} name='_diaChi' onChange={e => this.changeHandler(e)} />
                                         </td>
                                         <td>
                                             <input defaultValue={level} placeholder={level} name='_level' onChange={e => this.changeHandler(e)} />
@@ -145,7 +145,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     getAllCustomer,
     deleteACustomerForever,
-    editCustomer
+    updateCustomer
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerTable)

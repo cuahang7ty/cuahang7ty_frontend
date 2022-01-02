@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AddProductForm from "../forms/addProduct-form";
 import ProductTable from "../tables/product-table";
 import { Row, Col } from 'react-bootstrap'
-import SpeechRecognitionTool from "../speechRecognitionTool";
+import FindProductBar from "../findProductBar";
 
 class ProductManagePage extends Component {
     render() {
@@ -13,7 +13,7 @@ class ProductManagePage extends Component {
                         <AddProductForm />
                     </Row>
                     <Row>
-                        <SpeechRecognitionTool/>
+                        <FindProductBar/>
                     </Row>
                     <Row>
                         <ProductTable />

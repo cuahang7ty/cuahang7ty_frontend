@@ -12,3 +12,7 @@ export const EDIT_CUSTOMER = 'EDIT_CUSTOMER'
 export const SHOW_AN_ALERT = 'SHOW_AN_ALERT'
 //Speech
 export const LOAD_TRANSCRIPT = 'LOAD_TRANSCRIPT'
+//keyword
+export const ADD_KEYWORD = 'ADD_KEYWORD'
+export const SEARCH_BY_KEYWORDS = 'SEARCH_BY_KEYWORDS'
+export const DELETE_KEYWORD = 'DELETE_KEYWORD'

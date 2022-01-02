@@ -10,8 +10,8 @@ export class AddCustomerForm extends Component {
         // this.handleSubmit = this.handleSubmit.bind(this)
 
         this.state = {
-            _fullName: '',
-            _numberphone: 0,
+            _tenKhachHang: '',
+            _soDienThoai: 0,
             _level: 0,
         }
         // this.firstText = React.createRef()
@@ -24,8 +24,8 @@ export class AddCustomerForm extends Component {
     }
 
     submitHandler = () => {
-        const { _fullName, _numberphone, _level } = this.state
-        this.props.addNewCustomer(_fullName, _numberphone, _level)
+        const { _tenKhachHang, _soDienThoai, _level } = this.state
+        this.props.addNewCustomer(_tenKhachHang, _soDienThoai, _level)
             .then(result => console.log(result))
     }
 
@@ -46,7 +46,7 @@ export class AddCustomerForm extends Component {
                                     Tên khách
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control name="_fullName" onChange={(e) => this.changeHandler(e)} />
+                                    <Form.Control name="_tenKhachHang" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
 
@@ -55,7 +55,7 @@ export class AddCustomerForm extends Component {
                                     Số điện thoại
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control type="number" name="_numberphone" onChange={(e) => this.changeHandler(e)} />
+                                    <Form.Control type="number" name="_soDienThoai" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
 

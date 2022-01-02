@@ -26,10 +26,10 @@ export const getAllCustomer = () => (dispatch) => {
     })
 }
 
-export const addNewCustomer = (fullName, numberphone, level) => (dispatch) => {
+export const addNewCustomer = (tenKhachHang, soDienThoai, level) => (dispatch) => {
     const body = {
-        fullName: fullName,
-        numberphone: numberphone,
+        tenKhachHang: tenKhachHang,
+        soDienThoai: soDienThoai,
         level: level,
     }
     return new Promise((resolve, reject) => {
@@ -49,16 +49,16 @@ export const addNewCustomer = (fullName, numberphone, level) => (dispatch) => {
     })
 }
 
-export const editCustomer = (_id, fullName, numberphone, address, level) => (dispatch) => {
+export const updateCustomer = (_id, tenKhachHang, soDienThoai, diaChi, level) => (dispatch) => {
     const body = {
-        fullName: fullName,
-        numberphone: numberphone,
-        address: address,
+        tenKhachHang: tenKhachHang,
+        soDienThoai: soDienThoai,
+        diaChi: diaChi,
         level: level,
     }
 
     return new Promise((resolve, reject) => {
-        axios.put(`${local_url}/api/customer/edit/${_id}`, body, config)
+        axios.put(`${local_url}/api/customer/update/${_id}`, body, config)
             .then(res => {
                 dispatch({
                     type: EDIT_CUSTOMER,
