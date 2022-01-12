@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {
-    ADD_KEYWORD,
     ADD_NEW_PRODUCT,
     DELETE_A_PRODUCT_FOREVER,
     EDIT_PRODUCT,
@@ -28,12 +27,12 @@ export const getAllProduct = () => (dispatch) => {
     })
 }
 
-export const addNewProduct = (tenMatHang, giaBanLe, giaNhap, soLuongTon) => (dispatch) => {
+export const addNewProduct = (productName, retailPrice, costPrice, stock) => (dispatch) => {
     const body = {
-        tenMatHang: tenMatHang,
-        giaBanLe: giaBanLe,
-        giaNhap: giaNhap,
-        soLuongTon: soLuongTon,
+        productName: productName,
+        retailPrice: retailPrice,
+        costPrice: costPrice,
+        stock: stock,
     }
 
     return new Promise((resolve, reject) => {
@@ -53,12 +52,12 @@ export const addNewProduct = (tenMatHang, giaBanLe, giaNhap, soLuongTon) => (dis
     })
 }
 
-export const updateProduct = (_id, tenMatHang, giaBanLe, giaNhap, soLuongTon) => (dispatch) => {
+export const updateProduct = (_id, productName, retailPrice, costPrice, stock) => (dispatch) => {
     const body = {
-        tenMatHang: tenMatHang,
-        giaBanLe: giaBanLe,
-        giaNhap: giaNhap,
-        soLuongTon: soLuongTon,
+        productName: productName,
+        retailPrice: retailPrice,
+        costPrice: costPrice,
+        stock: stock,
     }
 
     return new Promise((resolve, reject) => {
@@ -92,28 +91,6 @@ export const deleteAProductForever = (_id) => (dispatch) => {
                 //     type: ADD_NEW_PRODUCT_FAIL,
                 // })
                 alert(err)
-                reject(err)
-            })
-    })
-}
-
-export const addKeyword = (_id, keyword) => (dispatch) => {
-    const body = {
-        keyword: keyword
-    }
-
-    return new Promise((resolve, reject) => {
-        axios.put(`${local_url}/api/product/add/keyword/${_id}`, body, config)
-            .then(res => {
-                dispatch({
-                    type: ADD_KEYWORD,
-                })
-                resolve(res.data)
-            })
-            .catch(err => {
-                // dispatch({
-                //     type: ADD_NEW_PRODUCT_FAIL,
-                // })
                 reject(err)
             })
     })

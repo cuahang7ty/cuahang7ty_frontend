@@ -3,6 +3,7 @@ import { deleteAProductForever, getAllProduct, updateProduct } from '../../actio
 import { connect } from 'react-redux'
 import { Table, Button, Stack } from 'react-bootstrap';
 import AddKeywordModal from '../../modals/addKeyword-modal';
+import { getKeywordsOfProduct } from '../../actions/keyword-action';
 
 
 class ProductTable extends Component {
@@ -15,10 +16,10 @@ class ProductTable extends Component {
       _show: false,
 
       _id: '',
-      _tenMatHang: '',
-      _giaBanLe: 0,
-      _giaNhap: 0,
-      _soLuongTon: 0
+      _productName: '',
+      _retailPrice: 0,
+      _costPrice: 0,
+      _stock: 0
     }
 
     // this.onShowModalAddKeyword = this.onShowModalAddKeyword.bind(this);
@@ -52,14 +53,14 @@ class ProductTable extends Component {
   }
 
   setEditRow = (row, product) => {
-    const { _id, tenMatHang, giaBanLe, giaNhap, soLuongTon } = product
+    const { _id, productName, retailPrice, costPrice, stock } = product
     this.setState({
       _updateRow: row,
       _id: _id,
-      _tenMatHang: tenMatHang,
-      _giaBanLe: giaBanLe,
-      _giaNhap: giaNhap,
-      _soLuongTon: soLuongTon
+      _productName: productName,
+      _retailPrice: retailPrice,
+      _costPrice: costPrice,
+      _stock: stock
     })
   }
 
@@ -79,8 +80,8 @@ class ProductTable extends Component {
     this.setState({
       _updateRow: -1
     })
-    const { _id, _tenMatHang, _giaBanLe, _giaNhap, _soLuongTon } = this.state
-    await this.props.updateProduct(_id, _tenMatHang, _giaBanLe, _giaNhap, _soLuongTon)
+    const { _id, _productName, _retailPrice, _costPrice, _stock } = this.state
+    await this.props.updateProduct(_id, _productName, _retailPrice, _costPrice, _stock)
     this.props.getAllProduct()
   }
 
@@ -109,16 +110,16 @@ class ProductTable extends Component {
           <tbody>
             {_productList.map((product, index) => {
               let row = index + 1
-              const { _id, tenMatHang, giaBanLe, giaNhap, soLuongTon } = product
+              const { _id, productName, retailPrice, costPrice, stock } = product
               if (_updateRow !== row) {
                 return (
                   <tr>
                     <td>{row}</td>
                     <td>{_id}</td>
-                    <td>{tenMatHang}</td>
-                    <td>{giaBanLe}</td>
-                    <td>{giaNhap}</td>
-                    <td>{soLuongTon}</td>
+                    <td>{productName}</td>
+                    <td>{retailPrice}</td>
+                    <td>{costPrice}</td>
+                    <td>{stock}</td>
                     <td>
                       <Stack direction="horizontal" gap={1}>
                         <Button style={{ marginRight: '1rem', width: '5rem' }} variant="outline-danger" onClick={e => this.deleteHandler(_id)}>xóa</Button>
@@ -135,16 +136,16 @@ class ProductTable extends Component {
                     <td>{row}</td>
                     <td>{_id}</td>
                     <td>
-                      <input defaultValue={tenMatHang} placeholder={tenMatHang} name='_tenMatHang' onChange={e => this.changeHandler(e)} />
+                      <input defaultValue={productName} placeholder={productName} name='_productName' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
-                      <input defaultValue={giaBanLe} placeholder={giaBanLe} name='_giaBanLe' onChange={e => this.changeHandler(e)} />
+                      <input defaultValue={retailPrice} placeholder={retailPrice} name='_retailPrice' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
-                      <input defaultValue={giaNhap} placeholder={giaNhap} name='_giaNhap' onChange={e => this.changeHandler(e)} />
+                      <input defaultValue={costPrice} placeholder={costPrice} name='_costPrice' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
-                      <input defaultValue={soLuongTon} placeholder={soLuongTon} name='_soLuongTon' onChange={e => this.changeHandler(e)} />
+                      <input defaultValue={stock} placeholder={stock} name='_stock' onChange={e => this.changeHandler(e)} />
                     </td>
                     <td>
                       <Stack direction="horizontal" gap={1}>
@@ -164,7 +165,7 @@ class ProductTable extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  productList: state.productReducer.productList
+  productList: state.productReducer.productList,
 })
 
 const mapDispatchToProps = {

@@ -3,8 +3,10 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { loadTranscript } from '../actions/speech-action';
 import { connect } from 'react-redux'
 import * as Icon from 'react-bootstrap-icons'
-import { Button, FormControl, Row, Col, Stack } from 'react-bootstrap'
+// import { Button, FormControl, Row, Col, Stack } from 'react-bootstrap'
 import SearchProductManager from './searchProductManager';
+import { TextField } from '@material-ui/core';
+import { Button, Grid } from '@mui/material';
 
 const FindProductBar = (props) => {
   const {
@@ -15,12 +17,6 @@ const FindProductBar = (props) => {
     browserSupportsContinuousListening
   } = useSpeechRecognition();
 
-  // if (!listening && transcript.length > 0 && prevTranscript !== transcript) {
-  //   prevTranscript = transcript
-  //   console.log(prevTranscript)
-  //   props.loadTranscript(transcript)
-  // }
-
   const stopListeningHandle = () => {
     SpeechRecognition.abortListening()
     props.loadTranscript(transcript)
@@ -28,13 +24,9 @@ const FindProductBar = (props) => {
 
   const startContinuousListening = () => {
     resetTranscript()
-    if (browserSupportsContinuousListening) {
+    if (browserSupportsContinuousListening)
       SpeechRecognition.startListening({ continuous: true })
-    } else {
-      console.log('oh no')
-    }
   }
-
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -42,19 +34,18 @@ const FindProductBar = (props) => {
 
   return (
     <div style={{ marginBottom: '1rem' }}>
-      <Stack direction="horizontal" gap={3}>
-        {/* <p>Microphone: {listening ? 'on' : 'off'}</p> */}
-        <FormControl defaultValue={transcript} placeholder='Nhập hoặc nói để tìm mặt hàng' />
-        {/* <Button variant="outline-danger" onClick={resetTranscript} size="sm">reset</Button> */}
-        {/* <div className="vr" /> */}
-        {listening ?
-          // <Button onClick={e => stopListeningHandle()} style={{ width: '5rem' }} variant="danger"><Icon.MicFill /></Button>
-          <Button onClick={e => stopListeningHandle()} style={{ width: '5rem' }} variant="danger"><Icon.MicFill /></Button>
-          :
-          <Button onClick={e => startContinuousListening()} style={{ width: '5rem' }}><Icon.Mic /></Button>
-        }
-        {/* <p>{transcript}</p> */}
-      </Stack>
+      {/* <Stack direction="horizontal" gap={3}> */}
+      {/* <FormControl defaultValue={transcript} placeholder='Nhập hoặc nói để tìm mặt hàng' /> */}
+
+      <TextField style={{width: '80%'}} id="outlined-basic" label="Outlined" variant="outlined" placeholder='Nhập hoặc nói để tìm mặt hàng' defaultValue={transcript} />
+
+      {listening ?
+        <Button onClick={e => stopListeningHandle()} style={{ width: '5rem' }} variant="danger"><Icon.MicFill /></Button>
+        :
+        <Button onClick={e => startContinuousListening()} style={{ width: '5rem' }}><Icon.Mic /></Button>
+      }
+
+      {/* </Stack> */}
       <SearchProductManager />
     </div>
   );

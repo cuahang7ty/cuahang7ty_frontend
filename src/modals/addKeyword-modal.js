@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Button, Stack } from 'react-bootstrap'
-// import { addKeyword } from '../actions/product-action'
+import { Modal, Button, Stack, Col, Row } from 'react-bootstrap'
+import { getKeywordsOfProduct } from '../actions/keyword-action'
+import Badge from 'react-bootstrap/Badge'
 
 export class AddKeyWordModal extends Component {
     constructor(props) {
@@ -11,16 +12,26 @@ export class AddKeyWordModal extends Component {
             _show: false,
             _product: {},
 
-            _primaryKey: '',
-            _secondKeys: []
+            _keywords: []
 
         }
     }
 
-    handleShow = (index) => {
-        this.setState({
-            _show: true,
-            _product: this.props.productList[index]
+    componentDidUpdate = (prevProps) => {
+        const { keywords } = this.props
+        if (prevProps.keywords !== keywords && keywords !== null) {
+            this.setState({ _keywords: keywords })
+        }
+    }
+
+    handleShow = async (index) => {
+        const product = this.props.productList[index]
+        this.props.getKeywordsOfProduct(product._id).then(keywords => {
+            this.setState({
+                _show: true,
+                _product: product,
+                _keywords: keywords
+            })
         })
     }
 
@@ -28,35 +39,53 @@ export class AddKeyWordModal extends Component {
         this.setState({ _show: false })
     }
 
-    changeHandler = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    changeHandlerSecondKey = (e) => {
-        let secondKeys = [...this.state._secondKeys]
-        secondKeys[0] = e.target.value
-        this.setState({
-            _secondKeys: [...secondKeys]
-        })
-    }
-
-    handleAddKeyword = (_id) => {
-        const { _primaryKey, _secondKeys } = this.state
-        const keywords = {
-            primaryKey: _primaryKey,
-            secondKeys: _secondKeys
-        }
-        // this.props.addKeyword(_id, keywords)
-    }
+    // changeHandler = (e) => {
+    //     this.setState({
+    //         [e.target.name]: e.target.value
+    //     })
+    // }
 
     render() {
-        const { indexOfProduct } = this.props
-        const { _show, _product, _keyword } = this.state
+        const { indexOfProduct, keywords } = this.props
+        const { _show, _product, _keywords } = this.state
+
+        const keywordList =
+            <div>
+                {_keywords.map(keyword => {
+                    return (
+                        <div>
+                            <Row xs="auto">
+                                <Col item sm={1}>
+                                    <h5>
+                                        <Badge bg="primary">{keyword.primaryKey}</Badge>
+                                    </h5>
+                                </Col>
+                                <Col>/</Col>
+                                <Col style={{ minWidth: "10rem" }}>
+                                    <Stack direction="horizontal" gap={1}>
+                                        {
+                                            keyword.secondKeys.map(secondKey => {
+                                                return (
+                                                    <h6>
+                                                        <Badge pill bg="secondary">{secondKey}</Badge>
+                                                    </h6>)
+                                            })
+                                        }
+                                        <Button size='sm' variant="outline-secondary">+</Button>
+                                    </Stack>
+                                </Col>
+                                <Col>
+                                </Col>
+                            </Row>
+                        </div>
+                    )
+                })
+                }
+            </div>
+
         return (
             <div>
-                <Button variant='outline-success' onClick={e => this.handleShow(indexOfProduct)}>thêm khóa tìm kiếm</Button>
+                <Button variant='outline-success' onClick={e => this.handleShow(indexOfProduct)}>khóa tìm kiếm</Button>
                 <Modal
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
@@ -66,18 +95,13 @@ export class AddKeyWordModal extends Component {
                 >
                     <Modal.Header>
                         <Modal.Title>
-                            THÊM KHÓA TÌM KIẾM
+                            TỪ KHÓA TÌM KIẾM
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h4>Mặt hàng: {_product.tenMatHang}</h4>
-                            <p>Khóa chính: </p>
-                            <input name='_primaryKey' onChange={(e) => this.changeHandler(e)}></input>
-
-                            <p>Khóa phụ: </p>
-                            <input name='secondKeys[0]' type="text" value={this.state._secondKeys[0]} onChange={e => this.changeHandlerSecondKey(e)} />
-
-                        <Button style={{ marginLeft: '1rem' }} variant='success' onClick={e => this.handleAddKeyword(_product._id)}>thêm</Button>
+                        <h4>Mặt hàng: {_product.productName}</h4>
+                        {keywordList}
+                        <Button style={{ marginTop: '1rem' }} size="sm" variant='outline-primary' onClick={e => console.log('them khoa chinh')}>+</Button>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant='outline-danger' onClick={e => this.handleClose(false)}>Close</Button>
@@ -89,12 +113,12 @@ export class AddKeyWordModal extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    productList: state.productReducer.productList
+    productList: state.productReducer.productList,
+    keywords: state.keywordReducer.keywords
 })
 
 const mapDispatchToProps = {
-    // addKeyword
+    getKeywordsOfProduct
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddKeyWordModal
-)
+export default connect(mapStateToProps, mapDispatchToProps)(AddKeyWordModal)

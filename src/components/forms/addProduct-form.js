@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Form, Button, Row, Col, Card } from 'react-bootstrap'
 import { addNewProduct } from '../../actions/product-action'
+import { Paper } from '@mui/material'
 
 export class AddProductForm extends Component {
     constructor(props) {
@@ -10,10 +11,10 @@ export class AddProductForm extends Component {
         // this.handleSubmit = this.handleSubmit.bind(this)
 
         this.state = {
-            _tenMatHang: '',
-            _giaBanLe: 0,
-            _giaNhap: 0,
-            _soLuongTon: 0,
+            _productName: '',
+            _retailPrice: 0,
+            _costPrice: 0,
+            _stock: 0,
         }
         // this.firstText = React.createRef()
     }
@@ -25,9 +26,9 @@ export class AddProductForm extends Component {
     }
 
     submitHandler = () => {
-        const { _tenMatHang, _giaBanLe, _giaNhap, _soLuongTon } = this.state
+        const { _productName, _retailPrice, _costPrice, _stock } = this.state
 
-        this.props.addNewProduct(_tenMatHang, _giaBanLe, _giaNhap, _soLuongTon)
+        this.props.addNewProduct(_productName, _retailPrice, _costPrice, _stock)
             .then(result => console.log(result))
 
     }
@@ -35,7 +36,11 @@ export class AddProductForm extends Component {
     render() {
         return (
             <div>
-                <Card
+                <Paper>
+                    <p>Paper Add Product</p>
+
+                </Paper>
+                {/* <Card
                     bg={"dark"}
                     text={"white"}
                     style={{ width: '30rem' }}
@@ -49,7 +54,7 @@ export class AddProductForm extends Component {
                                     Tên hàng
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control name="_tenMatHang" onChange={(e) => this.changeHandler(e)} />
+                                    <Form.Control name="_productName" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row} className="mb-3">
@@ -57,7 +62,7 @@ export class AddProductForm extends Component {
                                     Giá bán lẻ
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control type="number" name="_giaBanLe" onChange={(e) => this.changeHandler(e)} />
+                                    <Form.Control type="number" name="_retailPrice" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row} className="mb-3">
@@ -65,7 +70,7 @@ export class AddProductForm extends Component {
                                     Giá nhập
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control type="number" name="_giaNhap" onChange={(e) => this.changeHandler(e)} />
+                                    <Form.Control type="number" name="_costPrice" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row} className="mb-3">
@@ -73,14 +78,14 @@ export class AddProductForm extends Component {
                                     Số lượng tồn
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control type="number" name="_soLuongTon" onChange={(e) => this.changeHandler(e)} />
+                                    <Form.Control type="number" name="_stock" onChange={(e) => this.changeHandler(e)} />
                                 </Col>
                             </Form.Group>
 
                             <Button variant="success" type="submit">Submit</Button>
                         </Form>
                     </Card.Body>
-                </Card>
+                </Card> */}
             </div>
         )
     }

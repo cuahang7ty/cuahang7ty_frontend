@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { searchByKeywords } from '../actions/product-action'
-import ResultSearchingByKeywordModal from '../modals/resultSearchingByKeyword-modal';
+import { resetTranscript } from '../actions/keyword-action'
+import ResultsSearchingModal from '../modals/resultsSearching-modal'
 
 export class SearchProductManager extends Component {
     constructor(props) {
@@ -9,17 +10,18 @@ export class SearchProductManager extends Component {
     }
 
     async componentDidUpdate(prevProps) {
-        const { transcript, searchByKeywords } = this.props
+        const { transcript, searchByKeywords, resetTranscript } = this.props
+        this.child.handleShow()
         if (prevProps.transcript !== transcript && transcript !== []) {
             await searchByKeywords(transcript)
-            this.child.handleShow()
+            resetTranscript()
         }
     }
 
     render() {
         return (
             <div>
-                <ResultSearchingByKeywordModal onRef={ref => (this.child = ref)}/>
+                <ResultsSearchingModal onRef={ref => (this.child = ref)}/>
             </div>
         )
     }
@@ -32,6 +34,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     searchByKeywords,
+    resetTranscript
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchProductManager)

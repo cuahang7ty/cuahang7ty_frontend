@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
 
-export class ResultSearchingByKeywordModal extends Component {
+export class ResultsSearchingModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -30,6 +30,8 @@ export class ResultSearchingByKeywordModal extends Component {
 
     render() {
         const { topResults } = this.props
+
+
         return (
             <div>
                 <Modal
@@ -48,19 +50,19 @@ export class ResultSearchingByKeywordModal extends Component {
                             topResults.map(product => {
                                 return (
                                     <div>
-                                        <h4>Mặt hàng: {product.tenMatHang}</h4>
-                                        <p>giá bán: {product.giaBanLe}</p>
-                                        <p>giá nhập: {product.giaNhap}</p>
-                                        <p>số lượng tồn: {product.soLuongTon}</p>
+                                        <h4>Mặt hàng: {product.productName}</h4>
+                                        <p>giá bán: {product.retailPrice}</p>
+                                        <p>giá nhập: {product.costPrice}</p>
+                                        <p>số lượng tồn: {product.stock}</p>
                                     </div>
-                                )
-                            }) : null}
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant='outline-danger' onClick={e => this.handleClose(false)}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+                    )
+                            }) : <p>không tìm thấy bất kỳ mặt hàng nào</p>}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant='outline-danger' onClick={e => this.handleClose(false)}>Close</Button>
+                </Modal.Footer>
+            </Modal>
+            </div >
         )
     }
 }
@@ -73,4 +75,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResultSearchingByKeywordModal)
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsSearchingModal)
