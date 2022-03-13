@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import CustomerTable from "../tables/customer-table";
+import CustomerTable from "../tables/CustomerTable";
 import { Row, Col } from 'react-bootstrap'
-import AddCustomerForm from '../forms/addCustomer-form'
+// import AddCustomerForm from '../forms/AddCustomerForm'
 
 class CustomerManagePage extends Component {
     render() {
@@ -9,7 +9,7 @@ class CustomerManagePage extends Component {
             <div>
                 <Col>
                     <Row>
-                        <AddCustomerForm />
+                        {/* <AddCustomerForm /> */}
                     </Row>
                     <Row>
                         <CustomerTable />

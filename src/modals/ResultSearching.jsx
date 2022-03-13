@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
+import { clearResults } from '../actions/searcher-action'
 
 export class ResultsSearchingModal extends Component {
     constructor(props) {
@@ -25,12 +26,12 @@ export class ResultsSearchingModal extends Component {
     }
 
     handleClose = () => {
+        // this.props.clearResults()
         this.setState({ _show: false })
     }
 
     render() {
         const { topResults } = this.props
-
 
         return (
             <div>
@@ -55,24 +56,24 @@ export class ResultsSearchingModal extends Component {
                                         <p>giá nhập: {product.costPrice}</p>
                                         <p>số lượng tồn: {product.stock}</p>
                                     </div>
-                    )
+                                )
                             }) : <p>không tìm thấy bất kỳ mặt hàng nào</p>}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant='outline-danger' onClick={e => this.handleClose(false)}>Close</Button>
-                </Modal.Footer>
-            </Modal>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant='outline-danger' onClick={e => this.handleClose(false)}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
             </div >
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    topResults: state.keywordReducer.topResults
+    topResults: state.searcherReducer.topResults
 })
 
 const mapDispatchToProps = {
-
+    clearResults
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsSearchingModal)

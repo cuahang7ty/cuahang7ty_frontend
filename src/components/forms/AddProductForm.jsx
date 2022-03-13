@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Form, Button, Row, Col, Card } from 'react-bootstrap'
 import { addNewProduct } from '../../actions/product-action'
-import { Paper } from '@mui/material'
 
 export class AddProductForm extends Component {
     constructor(props) {
@@ -36,11 +35,7 @@ export class AddProductForm extends Component {
     render() {
         return (
             <div>
-                <Paper>
-                    <p>Paper Add Product</p>
-
-                </Paper>
-                {/* <Card
+                <Card
                     bg={"dark"}
                     text={"white"}
                     style={{ width: '30rem' }}
@@ -85,7 +80,7 @@ export class AddProductForm extends Component {
                             <Button variant="success" type="submit">Submit</Button>
                         </Form>
                     </Card.Body>
-                </Card> */}
+                </Card>
             </div>
         )
     }

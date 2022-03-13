@@ -4,7 +4,6 @@ import {
     DELETE_A_PRODUCT_FOREVER,
     EDIT_PRODUCT,
     GET_ALL_PRODUCT,
-    SEARCH_BY_KEYWORDS
 } from '../constants';
 import { config } from '../config'
 // import { returnErrors } from './errorAction';
@@ -77,7 +76,7 @@ export const updateProduct = (_id, productName, retailPrice, costPrice, stock) =
     })
 }
 
-export const deleteAProductForever = (_id) => (dispatch) => {
+export const deleteAProductForever = (_id) => dispatch => {
     return new Promise((resolve, reject) => {
         axios.delete(`${local_url}/api/product/delete/${_id}`, null, config)
             .then(res => {
@@ -93,48 +92,6 @@ export const deleteAProductForever = (_id) => (dispatch) => {
                 alert(err)
                 reject(err)
             })
-    })
-}
-
-export const searchByKeywords = (transcript) => dispatch => {
-    const body = {
-        transcript: transcript
-    }
-    return new Promise((resolve, reject) => {
-        axios.put(`${local_url}/api/product/get/keywords`, body, config)
-            .then(async res => {
-                if (res.data.length > 0) {
-                    const result = await classifyResults(res.data)
-                    dispatch({
-                        type: SEARCH_BY_KEYWORDS,
-                        payload: result
-                    })
-                    resolve(result)
-                }
-            })
-            .catch(err => {
-                reject(err)
-            })
-    })
-}
-
-const classifyResults = (resultsOfSearching) => {
-    return new Promise(resolve => {
-        const bestCount = resultsOfSearching[0].count
-        let topResults = []
-        let badResults = []
-        const promises = resultsOfSearching.map(result => {
-            return new Promise(resolve => {
-                if (bestCount === result.count)
-                    topResults.push(result.product)
-                else
-                    badResults.push(result.product)
-                resolve()
-            })
-        })
-        Promise.all(promises).then(() => {
-            resolve({ topResults, badResults })
-        })
     })
 }
 

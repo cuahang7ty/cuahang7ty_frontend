@@ -17,7 +17,7 @@ export class Sidebar extends Component {
         return (
             <div>
                 <ListGroup >
-                    <Link to='/create-bill-receipt-page' style={{ textDecoration: 'none' }}>
+                    <Link to='/create-bill-page' style={{ textDecoration: 'none' }}>
                         <ListGroup.Item>
                             Viết hóa đơn
                         </ListGroup.Item>

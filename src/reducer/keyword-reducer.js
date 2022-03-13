@@ -1,11 +1,8 @@
 //quan ly cac state lien quan den customer
-import { ADD_KEYWORD, GET_KEYWORDS_OF_PRODUCT, LOAD_TRANSCRIPT, RESET_TRANSCRIPT, SEARCH_BY_KEYWORDS } from '../constants';
+import { ADD_KEYWORD, ADD_SECONDKEY, DELETE_SECONDKEY, GET_KEYWORDS_OF_PRODUCT, LOAD_TRANSCRIPT, RESET_TRANSCRIPT, SEARCH_BY_KEYWORDS } from '../constants';
 
 const initialState = {
     keywords: [],
-    transcript: '',
-    topResults: [], //[product]
-    badResults: []
 }
 
 export default function (state = initialState, action) {
@@ -14,26 +11,20 @@ export default function (state = initialState, action) {
             return {
                 ...state,
             }
-        case LOAD_TRANSCRIPT:
-            return {
-                ...state,
-                transcript: action.payload
-            }
-        case RESET_TRANSCRIPT:
-            return {
-                ...state,
-                transcript: ''
-            }
-        case SEARCH_BY_KEYWORDS:
-            return {
-                ...state,
-                topResults: action.payload.topResults,
-                badResults: action.payload.badResults
-            }
         case GET_KEYWORDS_OF_PRODUCT:
             return {
                 ...state,
                 keywords: action.payload
+            }
+        case ADD_SECONDKEY:
+            return {
+                ...state,
+                // keywords: action.payload
+            }
+        case DELETE_SECONDKEY:
+            return{
+                ...state,
+                
             }
         default:
             return state

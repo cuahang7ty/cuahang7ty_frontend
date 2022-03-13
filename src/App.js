@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import store from './Store';
 import { Provider } from 'react-redux'
 import React, { Component } from 'react';
-import Main from './components/core/main'
+import Main from './components/cores/Main'
+import Sidebar from './components/cores/Sidebar';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Row, Col } from 'react-bootstrap';
-import Sidebar from './components/core/sidebar';
 
 class App extends Component {
   render() {

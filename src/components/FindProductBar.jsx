@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { loadTranscript } from '../actions/speech-action';
+import { loadTranscript } from '../actions/searcher-action';
 import { connect } from 'react-redux'
 import * as Icon from 'react-bootstrap-icons'
 // import { Button, FormControl, Row, Col, Stack } from 'react-bootstrap'
-import SearchProductManager from './searchProductManager';
-import { TextField } from '@material-ui/core';
-import { Button, Grid } from '@mui/material';
+import SearchProductManager from './SearchProductManager';
+import { Button, FormControl, Stack } from 'react-bootstrap';
 
 const FindProductBar = (props) => {
   const {
@@ -34,18 +33,15 @@ const FindProductBar = (props) => {
 
   return (
     <div style={{ marginBottom: '1rem' }}>
-      {/* <Stack direction="horizontal" gap={3}> */}
-      {/* <FormControl defaultValue={transcript} placeholder='Nhập hoặc nói để tìm mặt hàng' /> */}
+      <Stack direction="horizontal" gap={3}>
+        <FormControl defaultValue={transcript} placeholder='Nhập hoặc nói để tìm mặt hàng' />
+        {listening ?
+          <Button onClick={e => stopListeningHandle()} style={{ width: '5rem' }} variant="danger"><Icon.MicFill /></Button>
+          :
+          <Button onClick={e => startContinuousListening()} style={{ width: '5rem' }}><Icon.Mic /></Button>
+        }
 
-      <TextField style={{width: '80%'}} id="outlined-basic" label="Outlined" variant="outlined" placeholder='Nhập hoặc nói để tìm mặt hàng' defaultValue={transcript} />
-
-      {listening ?
-        <Button onClick={e => stopListeningHandle()} style={{ width: '5rem' }} variant="danger"><Icon.MicFill /></Button>
-        :
-        <Button onClick={e => startContinuousListening()} style={{ width: '5rem' }}><Icon.Mic /></Button>
-      }
-
-      {/* </Stack> */}
+      </Stack>
       <SearchProductManager />
     </div>
   );

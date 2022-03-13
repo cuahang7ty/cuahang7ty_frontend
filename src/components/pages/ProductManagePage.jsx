@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import AddProductForm from "../forms/addProduct-form";
-import ProductTable from "../tables/product-table";
+import ProductTable from "../tables/ProductTable";
 import { Row, Col } from 'react-bootstrap'
-import FindProductBar from "../findProductBar";
+import FindProductBar from "../FindProductBar";
+import AddProductForm from '../forms/AddProductForm'
 
 class ProductManagePage extends Component {
     render() {

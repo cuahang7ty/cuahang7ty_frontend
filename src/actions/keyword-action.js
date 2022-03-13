@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-    ADD_KEYWORD, GET_KEYWORDS_OF_PRODUCT, RESET_TRANSCRIPT,
+    ADD_KEYWORD, ADD_SECONDKEY, DELETE_SECONDKEY, GET_KEYWORDS_OF_PRODUCT, RESET_TRANSCRIPT,
 } from '../constants';
 import { config } from '../config'
 
@@ -13,7 +13,7 @@ export const addKeyword = (primaryKey, secondKeys) => (dispatch) => {
     }
 
     return new Promise((resolve, reject) => {
-        axios.post(`${local_url}/api/keyword/add}`, body, config)
+        axios.post(`${local_url}/api/keyword/add/primarykey}`, body, config)
             .then(res => {
                 dispatch({
                     type: ADD_KEYWORD,
@@ -26,12 +26,6 @@ export const addKeyword = (primaryKey, secondKeys) => (dispatch) => {
                 // })
                 reject(err)
             })
-    })
-}
-
-export const resetTranscript = () => dispatch  => {
-    dispatch({
-        type: RESET_TRANSCRIPT
     })
 }
 
@@ -52,6 +46,52 @@ export const getKeywordsOfProduct = (product_id) => (dispatch) => {
                 //     type: ADD_NEW_PRODUCT_FAIL,
                 // })
                 console.log(err)
+                reject(err)
+            })
+    })
+}
+
+export const addNewSecondKey = (primaryKey, secondKey) => dispatch => {
+    const body = {
+        primaryKey: primaryKey,
+        secondKey: secondKey
+    }
+
+    return new Promise((resolve, reject) => {
+        axios.post(`${local_url}/api/keyword/add/secondkey`, body, config)
+            .then(res => {
+                dispatch({
+                    type: ADD_SECONDKEY,
+                })
+                resolve(res.data)
+            })
+            .catch(err => {
+                // dispatch({
+                //     type: ADD_NEW_PRODUCT_FAIL,
+                // })
+                reject(err)
+            })
+    })
+}
+
+export const deleteSecondKey = (primaryKey, secondKey) => dispatch => {
+    const body = {
+        primaryKey: primaryKey,
+        secondKey: secondKey
+    }
+    return new Promise((resolve, reject) => {
+        axios.put(`${local_url}/api/keyword/delete/secondkey/${secondKey}`, body, config)
+            .then(res => {
+                dispatch({
+                    type: DELETE_SECONDKEY,
+                })
+                resolve()
+            })
+            .catch(err => {
+                // dispatch({
+                //     type: ADD_NEW_PRODUCT_FAIL,
+                // })
+                alert(err)
                 reject(err)
             })
     })
