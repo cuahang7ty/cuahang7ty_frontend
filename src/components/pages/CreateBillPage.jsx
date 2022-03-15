@@ -27,6 +27,10 @@ export class CreateBillPage extends Component {
         })
     }
 
+    handlesomething = () => {
+        
+    }
+
     handleAddNewCart = (index) => {
         console.log('added new cart')
         this.props.addNewCart(index + 1)
