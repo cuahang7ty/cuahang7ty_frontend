@@ -19,14 +19,14 @@ class App extends Component {
     )
 
     const body = (
-      <body className='App-body'>
+      <body className='App-body' >
         <div className='App-content'>
           <Row>
             <Col xs lg="2">
               <Sidebar />
             </Col>
-            <Col md="auto">
-              <Main />
+            <Col>
+                <Main/>
             </Col>
           </Row>
         </div>

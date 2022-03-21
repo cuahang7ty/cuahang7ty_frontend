@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { ADD_NEW_CART } from '../constants';
 
-export const addNewCart = (indexCustomer) => dispatch => {
+export const addNewCart = (index) => dispatch => {
+    console.log('index ', index)
     const cart = {
-        customerName: 'khách' + indexCustomer,
+        customerName: 'Khách ' + index,
         billDetails: []
     }
     dispatch({

@@ -10,30 +10,24 @@ export class CreateBillPage extends Component {
 
         this.state = {
             _count: 1,
-            _index: 'Khách 1',
-            _cartList: [
-                {
-                    customerName: 'Khách 1',
-                    billDetails: []
-                }
-            ],
+            _selectedTab: 'Khách 1',
         }
     }
 
-    handleTabSelected = (index) => {
-        // console.log(index)
+    handleTabSelected = (tabName) => {
         this.setState({
-            _index: index
+            _selectedTab: tabName
         })
     }
 
-    handleAddNewCart = (index) => {
-        console.log('added new cart')
-        this.props.addNewCart(index + 1)
+    handleAddNewCart = async () => {
+        await this.setState({ _count: this.state._count + 1 })
+        this.props.addNewCart(this.state._count)
     }
 
     render() {
-        const { _index, _cartList } = this.state
+        const { _selectedTab, _count } = this.state
+        const { cartList } = this.props
 
         const table = () => {
             return (
@@ -72,13 +66,14 @@ export class CreateBillPage extends Component {
         return (
             <div>
                 <Stack direction="horizontal" gap={3}>
-                    <Button onClick={() => this.handleAddNewCart(_index)}>thêm đơn</Button>
+                    <Button onClick={() => this.handleAddNewCart()}>thêm đơn</Button>
                 </Stack>
-                <br/>
+                <br />
                 <Tabs
-                    activeKey={_index}
-                    onSelect={(index) => this.handleTabSelected(index)}>
-                    {_cartList.map(cart => {
+                    activeKey={_selectedTab}
+                    onSelect={tabName => this.handleTabSelected(tabName)}
+                >
+                    {cartList.map(cart => {
                         return (
                             <Tab eventKey={cart.customerName} title={cart.customerName}>
                                 {table()}
@@ -92,7 +87,7 @@ export class CreateBillPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-
+    cartList: state.cartReducer.cartList
 })
 
 const mapDispatchToProps = {
