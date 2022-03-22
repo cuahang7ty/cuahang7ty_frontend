@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux'
 import FindProductBar from "../FindProductBar";
 import { Tabs, Tab, Table, Row, Col, Button, Stack } from 'react-bootstrap'
-import { addNewCart } from "../../actions/cart-action";
+import { addNewCart, loadCartListFromLocalStorage, removeACart } from "../../actions/cart-action";
 
 export class CreateBillPage extends Component {
     constructor(props) {
@@ -14,15 +14,24 @@ export class CreateBillPage extends Component {
         }
     }
 
-    handleTabSelected = (tabName) => {
-        this.setState({
+    componentDidMount = () => {
+        this.props.loadCartListFromLocalStorage()
+    }
+
+    handleTabSelected = async (tabName) => {
+        await this.setState({
             _selectedTab: tabName
         })
     }
 
     handleAddNewCart = async () => {
-        await this.setState({ _count: this.state._count + 1 })
-        this.props.addNewCart(this.state._count)
+        const { cartList } = this.props
+        this.props.addNewCart(cartList.length + 1)
+    }
+
+    test = () => {
+        console.log(window.localStorage.cartList)
+        // this.props.loadCartListFromLocalStorage()
     }
 
     render() {
@@ -67,6 +76,9 @@ export class CreateBillPage extends Component {
             <div>
                 <Stack direction="horizontal" gap={3}>
                     <Button onClick={() => this.handleAddNewCart()}>thêm đơn</Button>
+                    <Button onClick={() => this.test()}>test</Button>
+                    <Button onClick={() => window.localStorage.clear()}>clear</Button>
+                    <Button onClick={()=> this.props.removeACart(this.state._selectedTab)} variant="danger">remove</Button>
                 </Stack>
                 <br />
                 <Tabs
@@ -91,7 +103,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    addNewCart
+    addNewCart,
+    loadCartListFromLocalStorage,
+    removeACart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateBillPage)
