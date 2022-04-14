@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import FindProductBar from "../FindProductBar";
 import { Tabs, Tab, Table, Row, Col, Button, Stack } from 'react-bootstrap'
 import { addNewCart, loadCartListFromLocalStorage, removeACart } from "../../actions/cart-action";
+import SetAmountOfProductModal from "../../modals/SetAmountOfProductModal";
 
 export class CreateBillPage extends Component {
     constructor(props) {
@@ -74,11 +75,13 @@ export class CreateBillPage extends Component {
 
         return (
             <div>
+                <FindProductBar />
                 <Stack direction="horizontal" gap={3}>
                     <Button onClick={() => this.handleAddNewCart()}>thêm đơn</Button>
                     <Button onClick={() => this.test()}>test</Button>
                     <Button onClick={() => window.localStorage.clear()}>clear</Button>
-                    <Button onClick={()=> this.props.removeACart(this.state._selectedTab)} variant="danger">remove</Button>
+                    <Button onClick={() => this.props.removeACart(this.state._selectedTab)} variant="danger">remove</Button>
+                    {/* <SetAmountOfProductModal /> */}
                 </Stack>
                 <br />
                 <Tabs

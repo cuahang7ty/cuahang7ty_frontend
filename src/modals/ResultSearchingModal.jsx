@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Button } from 'react-bootstrap'
+import { Modal, Button, Stack } from 'react-bootstrap'
 import { clearResults } from '../actions/searcher-action'
+import SetAmountOfProductModal from './SetAmountOfProductModal'
 
 export class ResultsSearchingModal extends Component {
     constructor(props) {
@@ -30,6 +31,11 @@ export class ResultsSearchingModal extends Component {
         this.setState({ _show: false })
     }
 
+    addNewBillDetail = (amount) => {
+        console.log(`added new bill detail with amount: ${amount}`)
+        //lam toi day
+    }
+
     render() {
         const { topResults } = this.props
 
@@ -50,11 +56,20 @@ export class ResultsSearchingModal extends Component {
                         {topResults.length > 0 ?
                             topResults.map(product => {
                                 return (
-                                    <div>
-                                        <h4>Mặt hàng: {product.productName}</h4>
-                                        <p>giá bán: {product.retailPrice}</p>
-                                        <p>giá nhập: {product.costPrice}</p>
-                                        <p>số lượng tồn: {product.stock}</p>
+                                    <div className="bg-light border">
+                                        <Stack direction="horizontal" gap={1}>
+                                            <div>
+                                                <h4>Mặt hàng: {product.productName}</h4>
+                                                <p>giá bán: {product.retailPrice}</p>
+                                                <p>giá nhập: {product.costPrice}</p>
+                                                <p>số lượng tồn: {product.stock}</p>
+                                            </div>
+                                            <div className="ms-auto" style={{marginRight: '2rem'}}>
+                                                {/* <Button variant='success'>chọn</Button> */}
+                                                <SetAmountOfProductModal productName={product.productName} addNewBillDetail={this.addNewBillDetail}/>
+                                            </div>
+                                        </Stack>
+
                                     </div>
                                 )
                             }) : <p>không tìm thấy bất kỳ mặt hàng nào</p>}

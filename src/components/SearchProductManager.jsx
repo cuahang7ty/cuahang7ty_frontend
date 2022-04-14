@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { resetTranscript, searchByKeywords } from '../actions/searcher-action'
-import ResultsSearchingModal from '../modals/ResultSearching'
+import ResultsSearchingModal from '../modals/ResultSearchingModal'
 
 export class SearchProductManager extends Component {
     constructor(props) {
@@ -12,7 +12,6 @@ export class SearchProductManager extends Component {
         const { transcript, searchByKeywords, resetTranscript } = this.props
         this.child.handleShow()
         if (prevProps.transcript !== transcript && transcript !== "") {
-            console.log('helo')
             await searchByKeywords(transcript)
             resetTranscript()
         }

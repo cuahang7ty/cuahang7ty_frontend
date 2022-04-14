@@ -17,7 +17,7 @@ export default function (state = initialState, action) {
         case RESET_TRANSCRIPT:
             return {
                 ...state,
-                transcript: ''
+                transcript: '',
             }
         case SEARCH_BY_KEYWORDS:
             return {

@@ -42,7 +42,7 @@ const FindProductBar = (props) => {
         }
 
       </Stack>
-      <SearchProductManager />
+      <SearchProductManager/>
     </div>
   );
 };

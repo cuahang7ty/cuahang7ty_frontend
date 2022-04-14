@@ -78,7 +78,7 @@ export class AddKeyWordModal extends Component {
     }
 
     deleteSecondKeyHandle = async (primaryKey, secondKey) => {
-        const {deleteSecondKey} = this.props
+        const { deleteSecondKey } = this.props
         await deleteSecondKey(primaryKey, secondKey)
         this.changeDeleteStatus(false)
         this.props.getKeywordsOfProduct(this.state._product._id)
@@ -166,7 +166,7 @@ export class AddKeyWordModal extends Component {
         const DeleteBtn =
             <div>
                 {
-                    _deleteStatus || _selectedKeywordIndex>-1 ?
+                    _deleteStatus || _selectedKeywordIndex > -1 ?
                         null
                         :
                         <Button size='sm' variant='danger' onClick={e => changeDeleteStatus(true)}>
@@ -216,7 +216,7 @@ export class AddKeyWordModal extends Component {
                         }
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant='outline-secondary' onClick={e => this.handleClose(false)}>Close</Button>
+                        <Button variant='outline-secondary' onClick={e => this.handleClose()}>Close</Button>
                     </Modal.Footer>
                 </Modal>
             </div >

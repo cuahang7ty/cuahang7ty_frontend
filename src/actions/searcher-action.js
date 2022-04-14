@@ -33,8 +33,12 @@ export const searchByKeywords = (transcript) => dispatch => {
 
                     resolve(result)
                 }
-                else
+                else{
+                    dispatch({
+                        type: CLEAR_RESULTS
+                    })
                     resolve(null)
+                }
             })
             .catch(err => {
                 reject(err)
