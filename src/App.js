@@ -15,6 +15,7 @@ class App extends Component {
     const header = (
       <header className='App-header'>
         <h2 style={{ paddingLeft: '2rem' }}>Welcome to CUA HANG 7 TY</h2>
+        <p>delete me</p>
       </header>
     )
 
