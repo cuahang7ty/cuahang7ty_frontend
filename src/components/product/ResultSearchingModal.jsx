@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Stack } from 'react-bootstrap'
-import { clearResults } from '../actions/searcher-action'
+import { clearResults } from '../../actions/searcher-action'
 import SetAmountOfProductModal from './SetAmountOfProductModal'
 
 export class ResultsSearchingModal extends Component {

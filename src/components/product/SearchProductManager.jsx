@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { resetTranscript, searchByKeywords } from '../actions/searcher-action'
-import ResultsSearchingModal from '../modals/ResultSearchingModal'
+import { resetTranscript, searchByKeywords } from '../../actions/searcher-action'
+import ResultsSearchingModal from './ResultSearchingModal'
 
 export class SearchProductManager extends Component {
     constructor(props) {

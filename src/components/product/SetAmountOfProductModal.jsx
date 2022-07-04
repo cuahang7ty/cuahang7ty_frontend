@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, FormControl, Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import AddNewBillDetailButton from '../components/AddNewBillDetailButton'
+import AddNewBillDetailButton from '../bill/AddNewBillDetailButton'
 
 export class SetAmountOfProductModal extends Component {
     constructor(props) {

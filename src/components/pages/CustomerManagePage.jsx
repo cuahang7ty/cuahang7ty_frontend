@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CustomerTable from "../tables/CustomerTable";
+import CustomerTable from "../customer/CustomerTable";
 import { Row, Col } from 'react-bootstrap'
 // import AddCustomerForm from '../forms/AddCustomerForm'
 

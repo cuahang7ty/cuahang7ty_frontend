@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { deleteAProductForever, getAllProduct, updateProduct } from '../../actions/product-action'
 import { connect } from 'react-redux'
 import { Table, Button, Stack } from 'react-bootstrap';
-import AddKeywordModal from '../../modals/AddKeywordModal';
+import AddKeywordModal from '../keywords/AddKeywordModal';
 import { getKeywordsOfProduct } from '../../actions/keyword-action';
 
 

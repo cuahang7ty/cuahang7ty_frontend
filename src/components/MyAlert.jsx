@@ -19,7 +19,7 @@ export class MyAlert extends Component {
             </Alert>
         return (
             <div>
-
+               
             </div>
         )
     }

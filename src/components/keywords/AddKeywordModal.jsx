@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Stack, Col, Row, FormControl } from 'react-bootstrap'
-import { getKeywordsOfProduct, addNewSecondKey, deleteSecondKey } from '../actions/keyword-action'
+import { getKeywordsOfProduct, addNewSecondKey, deleteSecondKey } from '../../actions/keyword-action'
 import Badge from 'react-bootstrap/Badge'
 
 export class AddKeyWordModal extends Component {

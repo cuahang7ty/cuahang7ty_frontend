@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { loadTranscript } from '../actions/searcher-action';
+import { loadTranscript } from '../../actions/searcher-action';
 import { connect } from 'react-redux'
 import * as Icon from 'react-bootstrap-icons'
 // import { Button, FormControl, Row, Col, Stack } from 'react-bootstrap'
@@ -28,7 +28,7 @@ const FindProductBar = (props) => {
   }
 
   if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
+    return <span>Browser doesn't support speech recognition.</span>
   }
 
   return (
@@ -44,8 +44,8 @@ const FindProductBar = (props) => {
       </Stack>
       <SearchProductManager/>
     </div>
-  );
-};
+  )
+}
 
 const mapDispatchToProps = {
   loadTranscript

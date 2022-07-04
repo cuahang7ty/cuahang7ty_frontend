@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Button } from 'react-bootstrap'
 
 export class AddNewBillDetailButton extends Component {
     // constructor(props){
@@ -24,4 +25,4 @@ const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = {}
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddNewBillDetailButton)x
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewBillDetailButton)
