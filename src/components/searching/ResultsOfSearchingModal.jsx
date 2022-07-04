@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Stack } from 'react-bootstrap'
 import { clearResults } from '../../actions/searcher-action'
-import SetAmountOfProductModal from './SetAmountOfProductModal'
+import SetAmountOfProductModal from '../product/SetAmountOfProductModal'
 
-export class ResultsSearchingModal extends Component {
+export class ResultsOfSearchingModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -23,7 +23,7 @@ export class ResultsSearchingModal extends Component {
         this.setState({
             _show: true,
         })
-        console.log('top', this.props.topResults)
+        //console.log('top', this.props.topResults)
     }
 
     handleClose = () => {
@@ -91,4 +91,4 @@ const mapDispatchToProps = {
     clearResults
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResultsSearchingModal)
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsOfSearchingModal)

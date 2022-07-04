@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
-import FindProductBar from "../product/FindProductBar";
+import FindProductBar from "../searching/FindProductBar"
 import { Tabs, Tab, Table, Row, Col, Button, Stack } from 'react-bootstrap'
 import { addNewCart, loadCartListFromLocalStorage, removeACart } from "../../actions/cart-action";
-import SetAmountOfProductModal from "../product/SetAmountOfProductModal";
 
 export class CreateBillPage extends Component {
     constructor(props) {

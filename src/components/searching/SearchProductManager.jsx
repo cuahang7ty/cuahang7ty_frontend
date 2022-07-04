@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { resetTranscript, searchByKeywords } from '../../actions/searcher-action'
-import ResultsSearchingModal from './ResultSearchingModal'
+import ResultsOfSearchingModal from './ResultsOfSearchingModal'
 
 export class SearchProductManager extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export class SearchProductManager extends Component {
     render() {
         return (
             <div>
-                <ResultsSearchingModal onRef={ref => (this.child = ref)}/>
+                <ResultsOfSearchingModal onRef={ref => (this.child = ref)}/>
             </div>
         )
     }
