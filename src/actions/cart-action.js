@@ -12,6 +12,16 @@ export const addNewCart = (index) => dispatch => {
     })
 }
 
+export const addBillDetailToCart = (product, tagName, cartList) => dispatch => {
+    var cartSelected = cartList.filter(ele => { 
+        return ele.customerName !== tagName; 
+    })
+    var newBillDetail = {
+
+    }
+    cartSelected.billDetails = [...cartSelected.billDetails, newBillDetail]
+}
+
 export const loadCartListFromLocalStorage = () => dispatch => {
     var cartList = window.localStorage.cartList
     if (cartList) {
@@ -22,7 +32,7 @@ export const loadCartListFromLocalStorage = () => dispatch => {
     }
     else {
         const cart = {
-            customerName: 'Khách 1',
+            customerName: 'Khách #',
             billDetails: []
         }
         dispatch({
@@ -30,7 +40,6 @@ export const loadCartListFromLocalStorage = () => dispatch => {
             payload: cart
         })
     }
-    
 }
 
 export const removeACart = (tagName) => async dispatch => {
@@ -42,11 +51,10 @@ export const removeACart = (tagName) => async dispatch => {
         type: REMOVE_A_CART,
         payload: cartList
     })
-
 }
 
 function arrayRemove(arr, value) { 
     return arr.filter(function(ele){ 
-        return ele.customerName != value; 
+        return ele.customerName !== value; 
     });
 }

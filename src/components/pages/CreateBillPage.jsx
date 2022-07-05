@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import FindProductBar from "../searching/FindProductBar"
 import { Tabs, Tab, Table, Row, Col, Button, Stack } from 'react-bootstrap'
 import { addNewCart, loadCartListFromLocalStorage, removeACart } from "../../actions/cart-action";
+import BillDetailTable from "../bill/BillDetailTable";
 
 export class CreateBillPage extends Component {
     constructor(props) {
@@ -25,8 +26,10 @@ export class CreateBillPage extends Component {
     }
 
     handleAddNewCart = async () => {
-        const { cartList } = this.props
-        this.props.addNewCart(cartList.length + 1)
+        //const { cartList } = this.props
+        // this.props.addNewCart(cartList.length + 1)
+        var today = new Date()
+        this.props.addNewCart(today.getHours().toString() + today.getMinutes().toString() + today.getSeconds().toString())
     }
 
     test = () => {
@@ -90,7 +93,8 @@ export class CreateBillPage extends Component {
                     {cartList.map(cart => {
                         return (
                             <Tab eventKey={cart.customerName} title={cart.customerName}>
-                                {table()}
+                                {/* {table()} */}
+                                <BillDetailTable/>
                             </Tab>
                         )
                     })}
