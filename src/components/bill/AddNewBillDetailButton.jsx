@@ -8,7 +8,7 @@ export class AddNewBillDetailButton extends Component {
 
     // }
 
-    AddNewBillDetail = () => {
+    handleConfirm = () => {
         
     }
 

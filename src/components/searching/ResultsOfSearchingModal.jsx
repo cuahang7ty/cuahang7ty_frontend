@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Stack } from 'react-bootstrap'
 import { clearResults } from '../../actions/searcher-action'
-import SetAmountOfProductModal from '../product/SetAmountOfProductModal'
+import SetAmountOfProductModal from '../bill/SetAmountOfProductModal'
 
 export class ResultsOfSearchingModal extends Component {
     constructor(props) {
@@ -67,6 +67,7 @@ export class ResultsOfSearchingModal extends Component {
                                             <div className="ms-auto" style={{marginRight: '2rem'}}>
                                                 {/* <Button variant='success'>chọn</Button> */}
                                                 <SetAmountOfProductModal productName={product.productName} addNewBillDetail={this.addNewBillDetail}/>
+                                                {/* dang lam khuc nay: dong modal ngay sau khi chon dc san pham */}
                                             </div>
                                         </Stack>
 

@@ -7,45 +7,55 @@ class BillDetailTable extends Component {
     super(props)
 
     this.state = {
-      _cart: []
+      billDetails: []
     }
+
+    this.setState({
+      billDetails: props.billDetails
+    })
   }
 
+  // componentDidMount = () => {
+  //   this.setState({
+  //     billDetails: this.props.billDetails
+  //   })
+  // }
+
   render() {
-    const { _cart } = this.state
+    const { billDetails } = this.state
 
     return (
-        <Table striped bordered hover variant="dark">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Tên mặt hàng</th>
-              <th>Đơn giá</th>
-              <th>Số lượng</th>
-              <th>Thành tiền</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {_cart.map((billDetail, index) => {
-              let row = index + 1
-              const { productName, retailPrice, quantity } = billDetail
-              return (
-                <tr>
-                  <td>{row}</td>
-                  <td>{productName}</td>
-                  <td>{retailPrice}</td>
-                  <td>{quantity}</td>
-                  <td>
-                    <Stack direction="horizontal" gap={1}>
-                      <Button style={{ marginRight: '1rem', width: '5rem' }} variant="outline-danger">xóa</Button>
-                    </Stack>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </Table>
+      <Table striped bordered hover variant="dark">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Tên mặt hàng</th>
+            <th>Đơn giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {billDetails.map((billDetail, index) => {
+            let row = index + 1
+            const { productName, retailPrice, quantity } = billDetail
+            return (
+              <tr>
+                <td>{row}</td>
+                <td>{productName}</td>
+                <td>{retailPrice}</td>
+                <td>{quantity}</td>
+                <td>
+                  <Stack direction="horizontal" gap={1}>
+                    <Button style={{ marginRight: '1rem', width: '5rem' }} variant="outline-danger">xóa</Button>
+                  </Stack>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </Table>
     )
   }
 }

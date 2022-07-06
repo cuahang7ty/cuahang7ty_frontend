@@ -11,7 +11,7 @@ export class CreateBillPage extends Component {
 
         this.state = {
             _count: 1,
-            _selectedTab: 'Khách 1',
+            _selectedTab: 'Đơn 1',
         }
     }
 
@@ -41,40 +41,6 @@ export class CreateBillPage extends Component {
         const { _selectedTab, _count } = this.state
         const { cartList } = this.props
 
-        const table = () => {
-            return (
-                <Table striped bordered hover variant="dark">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td colSpan={2}>Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                </Table>
-            )
-        }
-
         return (
             <div>
                 <FindProductBar />
@@ -93,8 +59,7 @@ export class CreateBillPage extends Component {
                     {cartList.map(cart => {
                         return (
                             <Tab eventKey={cart.customerName} title={cart.customerName}>
-                                {/* {table()} */}
-                                <BillDetailTable/>
+                                <BillDetailTable props_billDetails = {cart.billDetails}/>
                             </Tab>
                         )
                     })}

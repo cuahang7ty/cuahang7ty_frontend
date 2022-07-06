@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, FormControl, Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import AddNewBillDetailButton from '../bill/AddNewBillDetailButton'
+import AddNewBillDetailButton from './AddNewBillDetailButton'
 
 export class SetAmountOfProductModal extends Component {
     constructor(props) {
@@ -30,10 +30,14 @@ export class SetAmountOfProductModal extends Component {
         })
     }
 
+    handleConfirm = () => {
+        this.handleClose()
+    }
+
     render() {
         return (
             <div>
-                <Button onClick={e => this.handleOpen()}>set amount</Button>
+                <Button onClick={e => this.handleOpen()}>Chọn</Button>
                 <Modal
                     size="sm"
                     aria-labelledby="contained-modal-title-vcenter"
@@ -52,7 +56,8 @@ export class SetAmountOfProductModal extends Component {
                         {/* <FormControl type="number" value={this.state._amount} onChange={}></FormControl> */}
                     </Modal.Body>
                     <Modal.Footer>
-                        <AddNewBillDetailButton/>
+                        {/* <AddNewBillDetailButton/> */}
+                        <Button onClick={e => this.handleConfirm()}>Xác nhận</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
