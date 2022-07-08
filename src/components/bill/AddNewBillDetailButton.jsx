@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
+import {addBillDetailToCart} from '../../actions/cart-action'
 
 export class AddNewBillDetailButton extends Component {
     // constructor(props){
@@ -8,9 +9,7 @@ export class AddNewBillDetailButton extends Component {
 
     // }
 
-    handleConfirm = () => {
-        
-    }
+    
 
     render() {
         return (
@@ -21,8 +20,12 @@ export class AddNewBillDetailButton extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+    cartList: state.cartReducer.cartList
+})
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    addBillDetailToCart
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddNewBillDetailButton)

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux'
 import FindProductBar from "../searching/FindProductBar"
 import { Tabs, Tab, Table, Row, Col, Button, Stack } from 'react-bootstrap'
-import { addNewCart, loadCartListFromLocalStorage, removeACart } from "../../actions/cart-action";
+import { addNewCart, loadCartListFromLocalStorage, removeACart, switchCart } from "../../actions/cart-action";
 import BillDetailTable from "../bill/BillDetailTable";
 
 export class CreateBillPage extends Component {
@@ -20,6 +20,8 @@ export class CreateBillPage extends Component {
     }
 
     handleTabSelected = async (tabName) => {
+        var index = this.props.cartList.map(function(e) { return e.customerName; }).indexOf(tabName);
+        this.props.switchCart(index)
         await this.setState({
             _selectedTab: tabName
         })
@@ -30,11 +32,6 @@ export class CreateBillPage extends Component {
         // this.props.addNewCart(cartList.length + 1)
         var today = new Date()
         this.props.addNewCart(today.getHours().toString() + today.getMinutes().toString() + today.getSeconds().toString())
-    }
-
-    test = () => {
-        console.log(window.localStorage.cartList)
-        // this.props.loadCartListFromLocalStorage()
     }
 
     render() {
@@ -76,7 +73,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     addNewCart,
     loadCartListFromLocalStorage,
-    removeACart
+    removeACart,
+    switchCart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateBillPage)

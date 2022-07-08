@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, FormControl, Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import AddNewBillDetailButton from './AddNewBillDetailButton'
+import {addBillDetailToCart} from '../../actions/cart-action'
 
 export class SetAmountOfProductModal extends Component {
     constructor(props) {
@@ -32,13 +33,14 @@ export class SetAmountOfProductModal extends Component {
     }
 
     handleConfirm = () => {
-        this.handleClose()
+        const {product, cartSelected, cartList} = this.props
+        this.props.addBillDetailToCart(product, this.state._amount, cartSelected, cartList)
     }
 
     render() {
         return (
             <div>
-                {/* <Button onClick={e => this.handleOpen()}>Chọn</Button> */}
+                <Button onClick={e => this.handleOpen()}>Chọn</Button>
                 <Modal
                     size="sm"
                     aria-labelledby="contained-modal-title-vcenter"
@@ -48,7 +50,7 @@ export class SetAmountOfProductModal extends Component {
                 >
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            Nhập số lượng cho {this.props.productName}
+                            Nhập số lượng cho {this.props.product.productName}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -57,7 +59,7 @@ export class SetAmountOfProductModal extends Component {
                         {/* <FormControl type="number" value={this.state._amount} onChange={}></FormControl> */}
                     </Modal.Body>
                     <Modal.Footer>
-                        {/* <AddNewBillDetailButton/> */}
+                        {/* <AddNewBillDetailButton product = {this.props.product}/> */}
                         <Button onClick={e => this.handleConfirm()}>Xác nhận</Button>
                     </Modal.Footer>
                 </Modal>
@@ -66,8 +68,13 @@ export class SetAmountOfProductModal extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+    cartSelected: state.cartReducer.cartSelected,
+    cartList: state.cartReducer.cartList
+})
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    addBillDetailToCart
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetAmountOfProductModal)

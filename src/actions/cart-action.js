@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_NEW_CART, LOAD_CART_LIST_FROM_LOCALSTORAGE, SET_CART_COUNTER, LOAD_CART_COUNTER, REMOVE_A_CART, ADD_NEW_BILL_DETAIL_TO_CART } from '../constants';
+import { ADD_NEW_CART, LOAD_CART_LIST_FROM_LOCALSTORAGE, SET_CART_COUNTER, LOAD_CART_COUNTER, REMOVE_A_CART, ADD_NEW_BILL_DETAIL_TO_CART, SWITCH_CART } from '../constants';
 
 export const addNewCart = (index) => dispatch => {
     const cart = {
@@ -67,4 +67,11 @@ function arrayRemove(arr, value) {
     return arr.filter(function (ele) {
         return ele.customerName !== value;
     });
+}
+
+export const switchCart = (indexOfCartSelected) => dispatch => {
+    dispatch({
+        type: SWITCH_CART,
+        payload: indexOfCartSelected
+    })
 }

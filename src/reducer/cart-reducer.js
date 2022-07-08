@@ -1,7 +1,8 @@
-import { ADD_NEW_BILL_DETAIL_TO_CART, ADD_NEW_CART, LOAD_CART_LIST_FROM_LOCALSTORAGE, REMOVE_A_CART } from '../constants'
+import { ADD_NEW_BILL_DETAIL_TO_CART, ADD_NEW_CART, LOAD_CART_LIST_FROM_LOCALSTORAGE, REMOVE_A_CART, SWITCH_CART } from '../constants'
 
 const initialState = {
-    cartList: []
+    cartList: [],
+    cartSelected: 0 //index
 }
 
 function cartReducer(state = initialState, action) {
@@ -28,6 +29,11 @@ function cartReducer(state = initialState, action) {
             return {
                 ...state,
                 cartList: [...action.payload]
+            }
+        case SWITCH_CART:
+            return{
+                ...state,
+                cartSelected: action.payload
             }
         default:
             return state

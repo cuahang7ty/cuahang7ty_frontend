@@ -15,12 +15,6 @@ class BillDetailTable extends Component {
     })
   }
 
-  // componentDidMount = () => {
-  //   this.setState({
-  //     billDetails: this.props.billDetails
-  //   })
-  // }
-
   render() {
     const { billDetails } = this.state
 
@@ -61,6 +55,7 @@ class BillDetailTable extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  cartList: state.cartReducer.cartList
 })
 
 const mapDispatchToProps = {

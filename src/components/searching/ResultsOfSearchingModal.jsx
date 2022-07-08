@@ -10,11 +10,11 @@ export class ResultsOfSearchingModal extends Component {
         this.state = {
             _show: false
         }
-        this.childModal = React.createRef();
     }
 
     componentDidMount() {
         this.props.onRef(this)
+        // console.log(React.version);
     }
     componentWillUnmount() {
         this.props.onRef(undefined)
@@ -24,21 +24,10 @@ export class ResultsOfSearchingModal extends Component {
         this.setState({
             _show: true,
         })
-        //console.log('top', this.props.topResults)
     }
 
     handleClose = () => {
-        // this.props.clearResults()
         this.setState({ _show: false })
-    }
-
-    addNewBillDetail = (amount) => {
-        console.log(`added new bill detail with amount: ${amount}`)
-        //lam toi day
-    }
-
-    handleChose = () => {
-        this.childModal.current.handleOpen()
     }
 
     render() {
@@ -70,14 +59,11 @@ export class ResultsOfSearchingModal extends Component {
                                                 <p>số lượng tồn: {product.stock}</p>
                                             </div>
                                             <div className="ms-auto" style={{ marginRight: '2rem' }}>
-                                                <Button onClick={e => this.handleChose()}>Chọn</Button>
-                                                <SetAmountOfProductModal ref={this.childModal}
-                                                    productName={product.productName}
-                                                    addNewBillDetail={this.addNewBillDetail}
+                                                <SetAmountOfProductModal 
+                                                    product={product}
                                                     props_handleCloseResultModal={this.handleClose} />
                                             </div>
                                         </Stack>
-
                                     </div>
                                 )
                             }) : <p>không tồn tại mặt hàng bạn muốn tìm</p>}
