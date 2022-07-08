@@ -10,6 +10,7 @@ export class ResultsOfSearchingModal extends Component {
         this.state = {
             _show: false
         }
+        this.childModal = React.createRef();
     }
 
     componentDidMount() {
@@ -34,6 +35,10 @@ export class ResultsOfSearchingModal extends Component {
     addNewBillDetail = (amount) => {
         console.log(`added new bill detail with amount: ${amount}`)
         //lam toi day
+    }
+
+    handleChose = () => {
+        this.childModal.current.handleOpen()
     }
 
     render() {
@@ -64,16 +69,18 @@ export class ResultsOfSearchingModal extends Component {
                                                 <p>giá nhập: {product.costPrice}</p>
                                                 <p>số lượng tồn: {product.stock}</p>
                                             </div>
-                                            <div className="ms-auto" style={{marginRight: '2rem'}}>
-                                                {/* <Button variant='success'>chọn</Button> */}
-                                                <SetAmountOfProductModal productName={product.productName} addNewBillDetail={this.addNewBillDetail}/>
-                                                {/* dang lam khuc nay: dong modal ngay sau khi chon dc san pham */}
+                                            <div className="ms-auto" style={{ marginRight: '2rem' }}>
+                                                <Button onClick={e => this.handleChose()}>Chọn</Button>
+                                                <SetAmountOfProductModal ref={this.childModal}
+                                                    productName={product.productName}
+                                                    addNewBillDetail={this.addNewBillDetail}
+                                                    props_handleCloseResultModal={this.handleClose} />
                                             </div>
                                         </Stack>
 
                                     </div>
                                 )
-                            }) : <p>không tìm thấy bất kỳ mặt hàng nào</p>}
+                            }) : <p>không tồn tại mặt hàng bạn muốn tìm</p>}
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant='outline-danger' onClick={e => this.handleClose(false)}>Close</Button>

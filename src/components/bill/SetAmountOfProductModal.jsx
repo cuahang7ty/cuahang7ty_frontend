@@ -22,6 +22,7 @@ export class SetAmountOfProductModal extends Component {
         this.setState({
             _show: false
         })
+        this.props.props_handleCloseResultModal()
     }
 
     changeHandler = (e) => {
@@ -37,7 +38,7 @@ export class SetAmountOfProductModal extends Component {
     render() {
         return (
             <div>
-                <Button onClick={e => this.handleOpen()}>Chọn</Button>
+                {/* <Button onClick={e => this.handleOpen()}>Chọn</Button> */}
                 <Modal
                     size="sm"
                     aria-labelledby="contained-modal-title-vcenter"
